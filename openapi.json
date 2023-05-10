@@ -1,0 +1,157 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Тинькофф API для информации о пользователе",
+    "description": "API для получения и изменения информации о пользователе на стороне Тинькофф"
+  },
+  "servers": [
+    {
+      "url": "https://api.tinkoff.ru"
+    }
+  ],
+  "paths": {
+    "/users/{user_id}": {
+      "parameters": [
+        {
+          "name": "user_id",
+          "in": "path",
+          "description": "Идентификатор пользователя",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "example": 1234
+        }
+      ],
+      "get": {
+        "summary": "Получение информации о пользователе",
+        "description": "Возвращает информацию о пользователе с указанным идентификатором",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректный запрос"
+          },
+          "401": {
+            "description": "Неавторизованный запрос"
+          },
+          "404": {
+            "description": "Пользователь не найден"
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера"
+          }
+        }
+      },
+      "post": {
+        "summary": "Отправка данных о пользователе",
+        "description": "Отправляет данные о пользователе на сторону Тинькофф",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ"
+          },
+          "400": {
+            "description": "Некорректный запрос"
+          },
+          "401": {
+            "description": "Неавторизованный запрос"
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор пользователя",
+            "example": 1234
+          },
+          "name": {
+            "type": "string",
+            "description": "ФИО пользователя",
+            "example": "Ткаченко И.В."
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email пользователя",
+            "example": "tkach@mail.ru"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Номер телефона пользователя",
+            "example": 79123456789
+          },
+          "purchases": {
+            "type": "string",
+            "description": "Покупка пользователя",
+            "example": "Milk"
+          },
+          "price": {
+            "type": "integer",
+            "description": "Цена покупки",
+            "example": 150
+          }
+        }
+      },
+      "UserData": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "ФИО пользователя",
+            "example": "Ткаченко И.В."
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email пользователя",
+            "example": "tkach@mail.ru"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Номер телефона пользователя",
+            "example": 79123456789
+          },
+          "purchases": {
+            "type": "string",
+            "description": "Покупка пользователя",
+            "example": "Milk"
+          },
+          "price": {
+            "type": "integer",
+            "description": "Цена покупки",
+            "example": 150
+          }
+        }
+      }
+    }
+  }
+}
